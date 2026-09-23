@@ -44,20 +44,20 @@
 [`scripts/install.sh`](./scripts/install.sh) 가 레포 tarball을 받아 스킬 폴더만 꺼내 복사합니다. sudo·git·clone 모두 필요 없습니다.
 
 ```bash
-curl -sL https://raw.githubusercontent.com/its-janghoon/agent-skills/main/scripts/install.sh | bash -s -- spoon
+curl -fsSL https://raw.githubusercontent.com/its-janghoon/agent-skills/main/scripts/install.sh | bash -s -- spoon
 ```
 
 스킬 하나를 `~/.kiro/skills/` 에 설치합니다. 다른 형태:
 
 ```bash
 # 레포의 모든 스킬
-curl -sL https://raw.githubusercontent.com/its-janghoon/agent-skills/main/scripts/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/its-janghoon/agent-skills/main/scripts/install.sh | bash
 
 # 여러 개를 Claude Code 쪽에
-curl -sL https://raw.githubusercontent.com/its-janghoon/agent-skills/main/scripts/install.sh | bash -s -- --target claude spoon voice
+curl -fsSL https://raw.githubusercontent.com/its-janghoon/agent-skills/main/scripts/install.sh | bash -s -- --target claude spoon voice
 
 # 뭐가 있는지 먼저 보기
-curl -sL https://raw.githubusercontent.com/its-janghoon/agent-skills/main/scripts/install.sh | bash -s -- --list
+curl -fsSL https://raw.githubusercontent.com/its-janghoon/agent-skills/main/scripts/install.sh | bash -s -- --list
 ```
 
 `--target` 은 `kiro`(기본값, `~/.kiro/skills`), `kiro-local`, `claude`, `claude-local`, `opencode` 를 받습니다. `--dir <path>` 는 지정한 디렉터리에 설치하고, `--ref <브랜치나-태그>` 는 `main` 이 아닌 곳에서 설치합니다. 전체 옵션은 `--help` 로 봅니다.
@@ -70,7 +70,7 @@ curl -sL https://raw.githubusercontent.com/its-janghoon/agent-skills/main/script
 
 ```bash
 mkdir -p ~/.kiro/skills/spoon
-curl -sL -o ~/.kiro/skills/spoon/SKILL.md \
+curl -fsSL -o ~/.kiro/skills/spoon/SKILL.md \
   https://raw.githubusercontent.com/its-janghoon/agent-skills/main/skills/spoon/SKILL.md
 ```
 

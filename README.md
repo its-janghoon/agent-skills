@@ -44,20 +44,20 @@ Each skill is a self-contained folder under [`skills/`](./skills/). Installing o
 [`scripts/install.sh`](./scripts/install.sh) downloads the repo tarball and copies the skill folders out of it. No sudo, no git, no clone.
 
 ```bash
-curl -sL https://raw.githubusercontent.com/its-janghoon/agent-skills/main/scripts/install.sh | bash -s -- spoon
+curl -fsSL https://raw.githubusercontent.com/its-janghoon/agent-skills/main/scripts/install.sh | bash -s -- spoon
 ```
 
 That installs one skill into `~/.kiro/skills/`. Other forms:
 
 ```bash
 # every skill in the repo
-curl -sL https://raw.githubusercontent.com/its-janghoon/agent-skills/main/scripts/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/its-janghoon/agent-skills/main/scripts/install.sh | bash
 
 # several skills, into Claude Code instead
-curl -sL https://raw.githubusercontent.com/its-janghoon/agent-skills/main/scripts/install.sh | bash -s -- --target claude spoon voice
+curl -fsSL https://raw.githubusercontent.com/its-janghoon/agent-skills/main/scripts/install.sh | bash -s -- --target claude spoon voice
 
 # see what is available first
-curl -sL https://raw.githubusercontent.com/its-janghoon/agent-skills/main/scripts/install.sh | bash -s -- --list
+curl -fsSL https://raw.githubusercontent.com/its-janghoon/agent-skills/main/scripts/install.sh | bash -s -- --list
 ```
 
 `--target` takes `kiro` (default, `~/.kiro/skills`), `kiro-local`, `claude`, `claude-local`, or `opencode`. `--dir <path>` installs into an explicit directory, and `--ref <branch-or-tag>` installs from somewhere other than `main`. Run with `--help` for the full list.
@@ -70,7 +70,7 @@ One skill, without the script:
 
 ```bash
 mkdir -p ~/.kiro/skills/spoon
-curl -sL -o ~/.kiro/skills/spoon/SKILL.md \
+curl -fsSL -o ~/.kiro/skills/spoon/SKILL.md \
   https://raw.githubusercontent.com/its-janghoon/agent-skills/main/skills/spoon/SKILL.md
 ```
 
