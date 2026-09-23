@@ -128,3 +128,16 @@ Good — one place, literal, verifiable:
 The reply is a single numbered list from a fresh shell to a live URL, with the
 verifying `curl` and the rollback command as the final two steps — and no step
 that says "see the deployment guide".
+
+## As a slash command
+
+Kiro exposes every skill folder as a slash command, so this skill runs as
+`/spoonfeeding <task>` once the folder sits at `.kiro/skills/spoonfeeding/`
+(workspace) or `~/.kiro/skills/spoonfeeding/` (global). The text typed after the
+command name replaces `$ARGUMENTS` below.
+
+Claude Code and Claude.ai have no equivalent: there this skill is model-invoked
+from its `description`, so trigger it by saying "spoonfeed" or "스텝바이스텝"
+instead of typing a slash command.
+
+Target task: $ARGUMENTS
