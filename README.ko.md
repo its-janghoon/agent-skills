@@ -7,10 +7,10 @@
 ## 목차
 
 - [스킬](#스킬)
-- [시작하기](#시작하기)
-- [사용법](#사용법)
+- [설치](#설치)
+  - [한 줄 설치](#한-줄-설치)
+  - [직접 설치](#직접-설치)
   - [Claude.ai (zip 업로드)](#claudeai-zip-업로드)
-  - [코딩 에이전트 (Claude Code, Kiro, opencode)](#코딩-에이전트-claude-code-kiro-opencode)
 - [기여하기](#기여하기)
 - [링크](#링크)
 - [라이선스](#라이선스)
@@ -27,15 +27,62 @@
 
 형식이 서로 다르니 만들려는 결과물로 고르세요. 일반 영문 "one-pager" → `exec-one-pager`. 한국 정부·제안 표 양식 → `gov-one-pager`. 한국어 비즈니스 말투 → `voice`. UI 데모 영상 녹화 또는 클릭 흐름 확인 → `demo-recorder`. 다른 곳 안 보고 그대로 붙여넣을 수 있는 단계별 지시 → `spoon`.
 
-## 시작하기
+## 설치
 
-각 스킬은 [`skills/`](./skills/) 아래의 독립 폴더입니다. 문서 스킬은 별도 빌드가 필요 없습니다. 아래에서 설치 대상을 고른 뒤, 작업이 스킬 설명과 맞을 때 에이전트가 불러오도록 두면 됩니다.
+각 스킬은 [`skills/`](./skills/) 아래의 독립 폴더입니다. 설치는 그 폴더를 에이전트가 스킬을 찾는 위치에 두는 것이 전부이고, 빌드는 필요 없습니다.
 
-- 브라우저에서 Claude.ai를 쓰나요? 스킬 zip을 업로드하세요([Claude.ai (zip 업로드)](#claudeai-zip-업로드) 참고).
-- 코딩 에이전트(Claude Code, Kiro, opencode)를 쓰나요? 에이전트가 인식하는 위치에 스킬 폴더를 두세요([코딩 에이전트](#코딩-에이전트-claude-code-kiro-opencode) 참고).
-- `demo-recorder` 스킬을 원하나요? 실제 브라우저를 구동하므로 몇 단계가 더 필요합니다. 해당 스킬의 [SKILL.md](./skills/demo-recorder/SKILL.md)를 참고하세요.
+| 도구 | 디렉터리 | 호출 방식 |
+| --- | --- | --- |
+| Kiro (전역) | `~/.kiro/skills/<name>/` | 슬래시 커맨드, 예: `/spoon` |
+| Kiro (프로젝트 한정) | `.kiro/skills/<name>/` | 슬래시 커맨드, 예: `/spoon` |
+| Claude Code | `.claude/skills/<name>/` 또는 `~/.claude/skills/<name>/` | `description` 으로 모델이 호출 |
+| opencode | `.opencode/skills/<name>/` (`.claude/skills`, `.agents/skills` 도 읽음) | `description` 으로 모델이 호출 |
+| Claude.ai | zip 업로드, 디렉터리 없음 | `description` 으로 모델이 호출 |
 
-## 사용법
+### 한 줄 설치
+
+[`scripts/install.sh`](./scripts/install.sh) 가 레포 tarball을 받아 스킬 폴더만 꺼내 복사합니다. sudo·git·clone 모두 필요 없습니다.
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/its-janghoon/agent-skills/main/scripts/install.sh | bash -s -- spoon
+```
+
+스킬 하나를 `~/.kiro/skills/` 에 설치합니다. 다른 형태:
+
+```bash
+# 레포의 모든 스킬
+curl -fsSL https://raw.githubusercontent.com/its-janghoon/agent-skills/main/scripts/install.sh | bash
+
+# 여러 개를 Claude Code 쪽에
+curl -fsSL https://raw.githubusercontent.com/its-janghoon/agent-skills/main/scripts/install.sh | bash -s -- --target claude spoon voice
+
+# 뭐가 있는지 먼저 보기
+curl -fsSL https://raw.githubusercontent.com/its-janghoon/agent-skills/main/scripts/install.sh | bash -s -- --list
+```
+
+`--target` 은 `kiro`(기본값, `~/.kiro/skills`), `kiro-local`, `claude`, `claude-local`, `opencode` 를 받습니다. `--dir <path>` 는 지정한 디렉터리에 설치하고, `--ref <브랜치나-태그>` 는 `main` 이 아닌 곳에서 설치합니다. 전체 옵션은 `--help` 로 봅니다.
+
+다시 실행해도 안전합니다. 이미 있는 스킬 폴더는 `<name>.bak-<시각>` 으로 옮겨둔 뒤 새 복사본이 들어가므로 언제든 되돌릴 수 있습니다. 삭제는 스킬 폴더를 지우면 됩니다.
+
+### 직접 설치
+
+스크립트 없이 스킬 하나만:
+
+```bash
+mkdir -p ~/.kiro/skills/spoon
+curl -fsSL -o ~/.kiro/skills/spoon/SKILL.md \
+  https://raw.githubusercontent.com/its-janghoon/agent-skills/main/skills/spoon/SKILL.md
+```
+
+파일 하나로 된 스킬(`spoon`, `voice`)에서만 됩니다. `gov-one-pager`·`exec-one-pager`·`demo-recorder` 는 `SKILL.md` 옆에 `scripts/` 를 함께 싣기 때문에 클론해서 폴더째 복사합니다:
+
+```bash
+git clone https://github.com/its-janghoon/agent-skills.git
+mkdir -p ~/.kiro/skills
+cp -r agent-skills/skills/* ~/.kiro/skills/
+```
+
+`~/.kiro/skills` 자리는 쓰는 도구의 디렉터리로 바꾸면 됩니다(위 표 참고). `demo-recorder` 는 실제 브라우저를 구동하므로 몇 단계가 더 필요합니다. 해당 스킬의 [SKILL.md](./skills/demo-recorder/SKILL.md)를 참고하세요.
 
 ### Claude.ai (zip 업로드)
 
@@ -46,23 +93,6 @@
 zip은 Claude.ai가 요구하는 구조(`skill-name/SKILL.md`가 압축 루트)로 이미 맞춰 두었습니다. [Claude에서 스킬 사용하기](https://support.claude.com/en/articles/12512180-using-skills-in-claude)를 참고하세요.
 
 원페이저 스킬로 `.docx`를 만들 때는 Node.js와 `docx`(`npm install docx`)가 필요합니다.
-
-### 코딩 에이전트 (Claude Code, Kiro, opencode)
-
-같은 스킬 폴더가 여러 도구에서 동작하며, 인식 디렉터리만 다릅니다. Claude Code는 `.claude/skills`에 복사합니다:
-
-```bash
-mkdir -p .claude/skills
-cp -r skills/gov-one-pager skills/exec-one-pager skills/voice .claude/skills/
-```
-
-또는 전체 심볼릭 링크:
-
-```bash
-ln -s /path/to/claude-skills/skills/* .claude/skills/
-```
-
-다른 도구는 각자의 디렉터리에서 읽습니다. Kiro는 `.kiro/skills`, opencode는 `.opencode/skills`를 사용합니다(opencode는 `.claude/skills`와 `.agents/skills`도 읽습니다). `.claude/skills` 대신 해당 도구에 맞는 경로(예: `.kiro/skills`)를 쓰세요. `demo-recorder` 스킬에는 이 위치들에 한 번에 설치하는 크로스툴 설치기가 포함되어 있습니다. 해당 스킬의 [SKILL.md](./skills/demo-recorder/SKILL.md)를 참고하세요.
 
 ## 기여하기
 

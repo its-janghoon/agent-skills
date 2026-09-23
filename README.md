@@ -7,10 +7,10 @@ A small, open-source collection of [Agent Skills](https://agentskills.io/): fold
 ## Contents
 
 - [Skills](#skills)
-- [Getting started](#getting-started)
-- [Usage](#usage)
+- [Install](#install)
+  - [One-line install](#one-line-install)
+  - [Install by hand](#install-by-hand)
   - [Claude.ai (zip upload)](#claudeai-zip-upload)
-  - [Coding agents (Claude Code, Kiro, opencode)](#coding-agents-claude-code-kiro-opencode)
 - [Contributing](#contributing)
 - [Links](#links)
 - [License](#license)
@@ -27,15 +27,62 @@ A small, open-source collection of [Agent Skills](https://agentskills.io/): fold
 
 These are different formats, so pick by what you are producing. Generic English "one-pager" → `exec-one-pager`. Korean government proposal table → `gov-one-pager`. Korean business tone → `voice`. Recorded UI demo video or click-through check → `demo-recorder`. Exact copy-paste instructions the user can follow without looking anywhere else → `spoon`.
 
-## Getting started
+## Install
 
-Each skill is a self-contained folder under [`skills/`](./skills/). There is nothing to build for the document skills: choose an install target below, then let your agent load the skill when a task matches its description.
+Each skill is a self-contained folder under [`skills/`](./skills/). Installing one means putting that folder where your agent looks for skills. Nothing to build.
 
-- Using Claude.ai in the browser? Upload the skill zip (see [Claude.ai (zip upload)](#claudeai-zip-upload)).
-- Using a coding agent (Claude Code, Kiro, opencode)? Drop the skill folder where the agent discovers it (see [Coding agents](#coding-agents-claude-code-kiro-opencode)).
-- Want the `demo-recorder` skill? It drives a real browser and needs a few extra steps; see its [SKILL.md](./skills/demo-recorder/SKILL.md).
+| Tool | Directory | Invocation |
+| --- | --- | --- |
+| Kiro (global) | `~/.kiro/skills/<name>/` | slash command, e.g. `/spoon` |
+| Kiro (one project) | `.kiro/skills/<name>/` | slash command, e.g. `/spoon` |
+| Claude Code | `.claude/skills/<name>/` or `~/.claude/skills/<name>/` | model-invoked from `description` |
+| opencode | `.opencode/skills/<name>/` (also reads `.claude/skills`, `.agents/skills`) | model-invoked from `description` |
+| Claude.ai | zip upload, no directory | model-invoked from `description` |
 
-## Usage
+### One-line install
+
+[`scripts/install.sh`](./scripts/install.sh) downloads the repo tarball and copies the skill folders out of it. No sudo, no git, no clone.
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/its-janghoon/agent-skills/main/scripts/install.sh | bash -s -- spoon
+```
+
+That installs one skill into `~/.kiro/skills/`. Other forms:
+
+```bash
+# every skill in the repo
+curl -fsSL https://raw.githubusercontent.com/its-janghoon/agent-skills/main/scripts/install.sh | bash
+
+# several skills, into Claude Code instead
+curl -fsSL https://raw.githubusercontent.com/its-janghoon/agent-skills/main/scripts/install.sh | bash -s -- --target claude spoon voice
+
+# see what is available first
+curl -fsSL https://raw.githubusercontent.com/its-janghoon/agent-skills/main/scripts/install.sh | bash -s -- --list
+```
+
+`--target` takes `kiro` (default, `~/.kiro/skills`), `kiro-local`, `claude`, `claude-local`, or `opencode`. `--dir <path>` installs into an explicit directory, and `--ref <branch-or-tag>` installs from somewhere other than `main`. Run with `--help` for the full list.
+
+Re-running is safe: an existing skill folder is moved aside to `<name>.bak-<timestamp>` before the new copy lands, so you can always put the old one back. To uninstall, delete the skill folder.
+
+### Install by hand
+
+One skill, without the script:
+
+```bash
+mkdir -p ~/.kiro/skills/spoon
+curl -fsSL -o ~/.kiro/skills/spoon/SKILL.md \
+  https://raw.githubusercontent.com/its-janghoon/agent-skills/main/skills/spoon/SKILL.md
+```
+
+That works for single-file skills (`spoon`, `voice`). `gov-one-pager`, `exec-one-pager`, and `demo-recorder` ship `scripts/` alongside `SKILL.md`, so clone and copy the whole folder instead:
+
+```bash
+git clone https://github.com/its-janghoon/agent-skills.git
+mkdir -p ~/.kiro/skills
+cp -r agent-skills/skills/* ~/.kiro/skills/
+```
+
+Swap `~/.kiro/skills` for the directory your tool uses (see the table above). `demo-recorder` drives a real browser and needs a few extra steps; see its [SKILL.md](./skills/demo-recorder/SKILL.md).
 
 ### Claude.ai (zip upload)
 
@@ -46,23 +93,6 @@ Each skill is a self-contained folder under [`skills/`](./skills/). There is not
 Each zip already has the correct layout (`skill-name/SKILL.md` at the archive root). See [Using skills in Claude](https://support.claude.com/en/articles/12512180-using-skills-in-claude).
 
 The one-pager skills need Node.js and `docx` (`npm install docx`) when Claude generates the `.docx`.
-
-### Coding agents (Claude Code, Kiro, opencode)
-
-The same skill folders work across tools; only the discovery directory differs. For Claude Code, copy them into `.claude/skills`:
-
-```bash
-mkdir -p .claude/skills
-cp -r skills/gov-one-pager skills/exec-one-pager skills/voice .claude/skills/
-```
-
-Or symlink everything:
-
-```bash
-ln -s /path/to/claude-skills/skills/* .claude/skills/
-```
-
-Other tools read from their own directory: Kiro uses `.kiro/skills`, opencode uses `.opencode/skills` (and also reads `.claude/skills` and `.agents/skills`). Use the matching path (for example `.kiro/skills`) instead of `.claude/skills`. The `demo-recorder` skill also bundles a cross-tool installer that writes into all of these at once; see its [SKILL.md](./skills/demo-recorder/SKILL.md).
 
 ## Contributing
 
