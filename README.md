@@ -23,9 +23,9 @@ A small, open-source collection of [Agent Skills](https://agentskills.io/): fold
 | [exec-one-pager](./skills/exec-one-pager/) | English exec, pitch, or startup one-pager | [Download](./dist/exec-one-pager.zip) |
 | [voice](./skills/voice/) | Janghoon Lee Korean voice for docs, Slack, email, PDF | [Download](./dist/voice.zip) |
 | [demo-recorder](./skills/demo-recorder/) | Record a watchable demo video of a web app (visible cursor, slow motion) and verify a UI click-through | [Download](./dist/demo-recorder.zip) |
-| [spoonfeeding](./skills/spoonfeeding/) | Answer as one self-contained step-by-step walkthrough in a single place, with no cross-references | [Download](./dist/spoonfeeding.zip) |
+| [spoon](./skills/spoon/) | Answer as one self-contained step-by-step walkthrough in a single place, with no cross-references (Kiro: `/spoon`) | [Download](./dist/spoon.zip) |
 
-These are different formats, so pick by what you are producing. Generic English "one-pager" → `exec-one-pager`. Korean government proposal table → `gov-one-pager`. Korean business tone → `voice`. Recorded UI demo video or click-through check → `demo-recorder`. Exact copy-paste instructions the user can follow without looking anywhere else → `spoonfeeding`.
+These are different formats, so pick by what you are producing. Generic English "one-pager" → `exec-one-pager`. Korean government proposal table → `gov-one-pager`. Korean business tone → `voice`. Recorded UI demo video or click-through check → `demo-recorder`. Exact copy-paste instructions the user can follow without looking anywhere else → `spoon`.
 
 ## Getting started
 

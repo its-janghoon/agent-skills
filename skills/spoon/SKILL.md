@@ -1,5 +1,5 @@
 ---
-name: spoonfeeding
+name: spoon
 description: >-
   Answer as one self-contained step-by-step walkthrough in a single place, with
   no cross-references. Use on "spoonfeed", "step by step", "스푼피딩",
@@ -132,9 +132,9 @@ that says "see the deployment guide".
 ## As a slash command
 
 Kiro exposes every skill folder as a slash command, so this skill runs as
-`/spoonfeeding <task>` once the folder sits at `.kiro/skills/spoonfeeding/`
-(workspace) or `~/.kiro/skills/spoonfeeding/` (global). The text typed after the
-command name replaces `$ARGUMENTS` below.
+`/spoon <task>` once the folder sits at `.kiro/skills/spoon/` (workspace) or
+`~/.kiro/skills/spoon/` (global). The text typed after the command name replaces
+`$ARGUMENTS` below.
 
 Claude Code and Claude.ai have no equivalent: there this skill is model-invoked
 from its `description`, so trigger it by saying "spoonfeed" or "스텝바이스텝"

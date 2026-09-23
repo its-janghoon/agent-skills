@@ -23,9 +23,9 @@
 | [exec-one-pager](./skills/exec-one-pager/) | 영문 경영·피치·스타트업 원페이저 | [다운로드](./dist/exec-one-pager.zip) |
 | [voice](./skills/voice/) | 문서·슬랙·이메일·PDF용 이장훈 말투 | [다운로드](./dist/voice.zip) |
 | [demo-recorder](./skills/demo-recorder/) | 웹 앱의 데모 영상을 보기 좋게 녹화(마우스 커서 표시·슬로 모션)하고 UI 클릭 흐름을 검증 | [다운로드](./dist/demo-recorder.zip) |
-| [spoonfeeding](./skills/spoonfeeding/) | 다른 곳 참조 없이 한곳에서 그대로 따라할 수 있는 스텝바이스텝 안내 | [다운로드](./dist/spoonfeeding.zip) |
+| [spoon](./skills/spoon/) | 다른 곳 참조 없이 한곳에서 그대로 따라할 수 있는 스텝바이스텝 안내 (Kiro: `/spoon`) | [다운로드](./dist/spoon.zip) |
 
-형식이 서로 다르니 만들려는 결과물로 고르세요. 일반 영문 "one-pager" → `exec-one-pager`. 한국 정부·제안 표 양식 → `gov-one-pager`. 한국어 비즈니스 말투 → `voice`. UI 데모 영상 녹화 또는 클릭 흐름 확인 → `demo-recorder`. 다른 곳 안 보고 그대로 붙여넣을 수 있는 단계별 지시 → `spoonfeeding`.
+형식이 서로 다르니 만들려는 결과물로 고르세요. 일반 영문 "one-pager" → `exec-one-pager`. 한국 정부·제안 표 양식 → `gov-one-pager`. 한국어 비즈니스 말투 → `voice`. UI 데모 영상 녹화 또는 클릭 흐름 확인 → `demo-recorder`. 다른 곳 안 보고 그대로 붙여넣을 수 있는 단계별 지시 → `spoon`.
 
 ## 시작하기
 
